@@ -359,9 +359,13 @@
 "Assets/TP_GreyBox/Script/AView.cs"
 "Assets/TP_GreyBox/Script/CameraConfiguration.cs"
 "Assets/TP_GreyBox/Script/CameraController.cs"
+"Assets/TP_GreyBox/Script/Curve.cs"
 "Assets/TP_GreyBox/Script/DollyView.cs"
+"Assets/TP_GreyBox/Script/DrawGizmoTest.cs"
 "Assets/TP_GreyBox/Script/FixedFollowView.cs"
 "Assets/TP_GreyBox/Script/FixedView.cs"
+"Assets/TP_GreyBox/Script/FreeFollowView.cs"
+"Assets/TP_GreyBox/Script/MathUtils.cs"
 "Assets/TP_GreyBox/Script/PlayerController.cs"
 "Assets/TP_GreyBox/Script/Rail.cs"
 -langversion:9.0

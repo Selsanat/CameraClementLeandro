@@ -39,5 +39,4 @@ public struct CameraConfiguration
         Gizmos.DrawFrustum(Vector3.zero, fieldOfView, 0.5f, 0f, Camera.main.aspect);
         Gizmos.matrix = Matrix4x4.identity;
     }
-	
 }
