@@ -4,59 +4,79 @@ using UnityEngine;
 
 public class DollyView : AView
 {
-    public float roll;  // Roulement de la caméra
-    public float fov;   // Champ de vision de la caméra
-    public Transform target;  // Cible à suivre
-    public Rail rail;  // Rail auquel est attachée la caméra
-    public float distanceOnRail = 0f;  // Distance actuelle sur le rail
-    public float speed = 5f;  // Vitesse de déplacement sur le rail
+     public Rail rail;              
+    public float distanceOnRail; 
+    public float speed;         
+    public Transform target;       
+    public bool isAuto;         
+    public float roll, fov = 60;        
 
-    // Surcharge de la méthode GetConfiguration pour gérer le mouvement le long du rail
     public override CameraConfiguration GetConfiguration()
     {
         CameraConfiguration config = new CameraConfiguration();
+        Vector3 positionOnRail = rail.GetPosition(distanceOnRail);
+        Vector3 direction = (target.position - positionOnRail).normalized;
 
-        if (rail == null)
-        {
-            Debug.LogWarning("Rail non défini pour DollyView.");
-            return config;
-        }
-
-        // Calcul de la position sur le rail en fonction de la distance
-        Vector3 railPosition = rail.GetPosition(distanceOnRail);
-
-        // Calcul de la direction vers la cible
-        if (target != null)
-        {
-            Vector3 dir = (target.position - railPosition).normalized;
-
-            // Calcul des angles yaw et pitch pour suivre la cible
-            config.yaw = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
-            config.pitch = -Mathf.Asin(dir.y) * Mathf.Rad2Deg;
-        }
-
-        // Paramètres de la configuration de la caméra
+        config.yaw = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        config.pitch = -Mathf.Asin(direction.y) * Mathf.Rad2Deg;
         config.roll = roll;
         config.fieldOfView = fov;
-        config.pivot = railPosition;  // Position sur le rail
-        config.distance = 0;  // Distance à 0 car la caméra est sur le rail
+        config.pivot = positionOnRail;
+        config.distance = Vector3.Distance(positionOnRail, target.position);
 
         return config;
     }
-
-    void Update()
+    private void Update()
     {
-        float input = Input.GetAxis("Horizontal");  // Récupère l'input horizontal (clavier ou manette)
-        distanceOnRail += input * speed * Time.deltaTime;  // Déplacement en fonction de la vitesse
+        if (rail == null || target == null) return;
 
-        // S'assurer que la distance reste dans les limites du rail
-        if (rail.isLoop)
+        if (isAuto)
         {
-            distanceOnRail = Mathf.Repeat(distanceOnRail, rail.GetLength());
+            distanceOnRail = GetClosestPointOnRail(target.position);
         }
         else
         {
-            distanceOnRail = Mathf.Clamp(distanceOnRail, 0, rail.GetLength());
+            float input = Input.GetAxis("Horizontal");
+            distanceOnRail += input * speed * Time.deltaTime;
         }
+
+        distanceOnRail = Mathf.Repeat(distanceOnRail, rail.GetLength());
+    }
+
+    private float GetClosestPointOnRail(Vector3 targetPosition)
+    {
+        float closestDistance = float.MaxValue;
+        float closestPointOnRail = 0f;
+        float currentDistance = 0f;
+
+        List<Vector3> nodes = rail.GetRailNodes();
+
+        for (int i = 0; i < nodes.Count - 1; i++)
+        {
+            Vector3 nearestPoint = MathUtils.GetNearestPointOnSegment(nodes[i], nodes[i + 1], targetPosition);
+            float distanceToTarget = Vector3.Distance(nearestPoint, targetPosition);
+
+            if (distanceToTarget < closestDistance)
+            {
+                closestDistance = distanceToTarget;
+                closestPointOnRail = currentDistance + Vector3.Distance(nodes[i], nearestPoint);
+            }
+
+            currentDistance += Vector3.Distance(nodes[i], nodes[i + 1]);
+        }
+
+        if (rail.isLoop)
+        {
+            Vector3 nearestPoint = MathUtils.GetNearestPointOnSegment(nodes[nodes.Count - 1], nodes[0], targetPosition);
+            float distanceToTarget = Vector3.Distance(nearestPoint, targetPosition);
+
+            if (distanceToTarget < closestDistance)
+            {
+                closestDistance = distanceToTarget;
+                closestPointOnRail = currentDistance + Vector3.Distance(nodes[nodes.Count - 1], nearestPoint);
+            }
+        }
+
+        return closestPointOnRail;
     }
 }

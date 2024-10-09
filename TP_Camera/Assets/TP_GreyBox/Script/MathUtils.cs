@@ -16,4 +16,15 @@ public static class MathUtils
     {
         return (1 - t) * QuadraticBezier(A, B, C, t) + t * QuadraticBezier(B, C, D, t);
     }
+    public static Vector3 GetNearestPointOnSegment(Vector3 a, Vector3 b, Vector3 target)
+    {
+        
+        Vector3 ab = b - a;
+        Vector3 ac = target - a;
+        float abLength = ab.magnitude;
+        Vector3 abNorm = ab / abLength;
+        float dotProduct = Vector3.Dot(ac, abNorm);
+        dotProduct = Mathf.Clamp(dotProduct, 0, abLength);
+        return a + abNorm * dotProduct;
+    }
 }
