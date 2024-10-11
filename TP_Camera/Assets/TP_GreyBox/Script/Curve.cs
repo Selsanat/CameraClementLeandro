@@ -6,11 +6,11 @@ using Color = UnityEngine.Color;
 
 public class Curve
 {
-    public Vector3 A, B, C, D;
+    public Vector3 A, B, C;
 
     public Vector3 GetPosition(float t)
     {
-        return MathUtils.CubicBezier(A, B, C, D, t);
+        return MathUtils.QuadraticBezier(A, B, C, t);
     }
 
     public Vector3 GetPosition(float t, Matrix4x4 localToWorldMatrix)

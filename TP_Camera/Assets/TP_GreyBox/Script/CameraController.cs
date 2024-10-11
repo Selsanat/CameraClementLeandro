@@ -57,7 +57,7 @@ public class CameraController : MonoBehaviour
 
     private void ComputeCurrentConfiguration()
     {
-        _currentConfiguration.pivot = (_targetConfiguration.pivot - _currentConfiguration.pivot) * Time.deltaTime * InterpolationSpeed;
+        _currentConfiguration.pivot += (_targetConfiguration.pivot - _currentConfiguration.pivot) * Time.deltaTime * InterpolationSpeed;
         _currentConfiguration.pitch = getAverage(_currentConfiguration.pitch , _targetConfiguration.pitch);
         Vector2 currentYaw = new Vector2(Mathf.Cos(_currentConfiguration.yaw * Mathf.Deg2Rad), Mathf.Sin(_currentConfiguration.yaw * Mathf.Deg2Rad));
         Vector2 targetYaw = new Vector2(Mathf.Cos(_targetConfiguration.yaw * Mathf.Deg2Rad), Mathf.Sin(_targetConfiguration.yaw * Mathf.Deg2Rad));
