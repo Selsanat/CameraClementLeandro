@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class AView : MonoBehaviour
 {
-    public bool isActiveOnStart = true;
+    
     public float weight = 1f;
 
     public virtual CameraConfiguration GetConfiguration()
@@ -24,11 +24,5 @@ public abstract class AView : MonoBehaviour
         }
     }
 
-    protected virtual void Start()
-    {
-        if (isActiveOnStart)
-        {
-            SetActive(true);
-        }
-    }
+    
 }
