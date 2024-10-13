@@ -10,7 +10,7 @@ public class TriggeredViewVolume : AViewVolume
     {
         if (other.gameObject == target)
         {
-            SetActive(true);
+            View.GetComponent<AView>().SetActive(true);
         }
     }
 
@@ -18,7 +18,7 @@ public class TriggeredViewVolume : AViewVolume
     {
         if (other.gameObject == target)
         {
-            SetActive(false);
+            View.GetComponent<AView>().SetActive(false);
         }
     }
     
