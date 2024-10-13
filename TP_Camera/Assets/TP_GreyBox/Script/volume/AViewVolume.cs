@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class AViewVolume : MonoBehaviour
 {
-    public int Priority { get; set; } = 0;
-    public GameObject View { get; set; }
+    public int Priority = 0;
+    public GameObject View;
 
     private int Uid;
     public int _Uid => Uid;

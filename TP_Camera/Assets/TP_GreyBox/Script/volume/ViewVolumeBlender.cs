@@ -62,7 +62,7 @@ public class ViewVolumeBlender : MonoBehaviour
         if (!VolumesPerViews.ContainsKey(volume.View))
         {
             VolumesPerViews[volume.View] = new List<AViewVolume>();
-            volume.View.SetActive(true);
+            volume.View.GetComponent<AView>().SetActive(true);
         }
 
         VolumesPerViews[volume.View].Add(volume);

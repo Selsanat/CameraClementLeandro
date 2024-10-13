@@ -13,10 +13,6 @@ public abstract class AView : MonoBehaviour
         return new CameraConfiguration();
     }
 
-    public void Start()
-    {
-        SetActive(true);
-    }
     public void SetActive(bool isActive)
     {
         if (isActive)
