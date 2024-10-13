@@ -7,7 +7,7 @@ public class GlobalViewVolume : AViewVolume
 {
     private void Start()
     {
-        SetActive(true);
+        View.GetComponent<AView>().SetActive(true);
     }
     
 }

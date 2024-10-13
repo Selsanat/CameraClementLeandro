@@ -18,11 +18,11 @@ public class SphereViewVolume : AViewVolume
         // Activer ou désactiver en fonction de la distance
         if (distance <= outerRadius && !IsActive)
         {
-            SetActive(true);
+            View.GetComponent<AView>().SetActive(true);
         }
-        else if (distance > outerRadius && IsActive)
+        else
         {
-            SetActive(false);
+            View.GetComponent<AView>().SetActive(false);
         }
     }
 

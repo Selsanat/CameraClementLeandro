@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
     public float InterpolationSpeed = 1;
     public float InterpolationSnappingFloatPoint = 0.00001f;
     private List<AView> _activeViews = new List<AView>();  
+    private Transform _target;
 
     private static CameraController _instance;
 
@@ -45,12 +46,14 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        _target = GameObject.FindGameObjectWithTag("Player").transform;
         _targetConfiguration = ComputeAverage();
         _currentConfiguration = ComputeAverage();
     }
 
     private void Update()
     {
+        _target.rotation = Quaternion.Euler(0, _currentConfiguration.yaw, 0);
         _targetConfiguration = ComputeAverage();  
         ApplyConfiguration();  
     }

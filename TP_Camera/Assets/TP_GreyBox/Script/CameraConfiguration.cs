@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -11,7 +12,7 @@ public struct CameraConfiguration
     public Vector3 pivot;
     public float distance;
     public float fieldOfView;
-
+    public Transform player;
     public Quaternion GetRotation()
     {
         return Quaternion.Euler(pitch, yaw, roll);
