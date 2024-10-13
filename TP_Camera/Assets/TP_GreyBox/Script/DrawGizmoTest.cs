@@ -6,7 +6,7 @@ using UnityEngine;
 public class DrawGizmoTest : MonoBehaviour
 {
     [SerializeField]
-    public Vector3 A, B, C, D;
+    public Vector3 A, B, C;
     Curve Curve = new Curve();
     private void OnDrawGizmos()
     {
@@ -14,7 +14,6 @@ public class DrawGizmoTest : MonoBehaviour
         Curve.A = A;
         Curve.B = B;
         Curve.C = C;
-        Curve.D = D;
         Curve.DrawGizmo(Color.red, transform.localToWorldMatrix);
     }
 }
