@@ -97,6 +97,7 @@ public class CameraController : MonoBehaviour
 
         foreach (AView view in _activeViews)
         {
+            print(_activeViews);
             CameraConfiguration config = view.GetConfiguration();
             totalWeight += view.weight;
 
@@ -108,7 +109,6 @@ public class CameraController : MonoBehaviour
 
             summedFov += config.fieldOfView * view.weight;
         }
-
         return ComputeAvarageResult(summedPosition, totalWeight, summedRotation, summedFov);
     }
 
@@ -116,6 +116,10 @@ public class CameraController : MonoBehaviour
 	    Vector3 summedRotation, float summedFov)
     {
 	    CameraConfiguration averageConfig = new CameraConfiguration();
+        if (totalWeight == 0)
+        {
+            return averageConfig;
+        }
 	    averageConfig.pivot = summedPosition / totalWeight;
 	    averageConfig.pitch = summedRotation.x / totalWeight;
 	    averageConfig.yaw = summedRotation.y / totalWeight;

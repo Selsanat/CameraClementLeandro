@@ -368,6 +368,12 @@
 "Assets/TP_GreyBox/Script/MathUtils.cs"
 "Assets/TP_GreyBox/Script/PlayerController.cs"
 "Assets/TP_GreyBox/Script/Rail.cs"
+"Assets/TP_GreyBox/Script/volume/ActiveVolumeDisplay.cs"
+"Assets/TP_GreyBox/Script/volume/AViewVolume.cs"
+"Assets/TP_GreyBox/Script/volume/GlobalViewVolume.cs"
+"Assets/TP_GreyBox/Script/volume/SphereViewVolume.cs"
+"Assets/TP_GreyBox/Script/volume/TriggeredViewVolume.cs"
+"Assets/TP_GreyBox/Script/volume/ViewVolumeBlender.cs"
 -langversion:9.0
 /deterministic
 /optimize+
